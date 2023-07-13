@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <h1>Meal Planner</h1>
+        <!-- Include user authentication elements here -->
+        <div id="authentication">
+            <input type="text" id="username" placeholder="Username">
+            <input type="password" id="password" placeholder="Password">
+            <button id="loginBtn">Login</button>
+            <button id="registerBtn">Register</button>
+        </div>
+    </header>
+
+    <!-- Recipe Search -->
+    <section id="recipeSearch">
+        <h2>Recipe Search</h2>
+        <form id="searchForm">
+            <input type="text" id="searchQuery" placeholder="Search recipes">
+            <select id="cuisineSelect">
+                <option value="">All Cuisines</option>
+                <option value="italian">Italian</option>
+                <option value="indian">Indian</option>
+                <option value="mexican">Mexican</option>
+                <!-- Add more cuisine options -->
+            </select>
+            <input type="number" id="maxCookingTime" placeholder="Max Cooking Time (mins)">
+            <button type="submit">Search</button>
+        </form>
+        <div id="searchResults">
+            <!-- Display search results here -->
+        </div>
+    </section>
+
+    <!-- Recipe Details -->
+    <section id="recipeDetails">
+        <h2>Recipe Details</h2>
+        <div id="recipeInfo">
+            <!-- Display recipe information here -->
+        </div>
+        <div id="nutritionInfo">
+            <!-- Display nutrition information here -->
+        </div>
+        <button id="addToFavoritesBtn">Add to Favorites</button>
+        <button id="addToPlannerBtn">Add to Meal Planner</button>
+        <button id="addToShoppingListBtn">Add to Shopping List</button>
+    </section>
+
+    <!-- User Profile -->
+    <section id="userProfile">
+        <h2>User Profile</h2>
+        <div id="userInfo">
+            <!-- Display user information here -->
+        </div>
+        <div id="savedRecipes">
+            <!-- Display saved recipes here -->
+        </div>
+        <div id="mealPlanner">
+            <!-- Display meal planner here -->
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
