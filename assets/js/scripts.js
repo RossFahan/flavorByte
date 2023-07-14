@@ -33,24 +33,24 @@ function fetchRandomRecipe() {
     });
 }
 
-// Function to generate food joke
-function generateFoodJoke() {
-  var jokeURL = `https://api.spoonacular.com/food/jokes/random?apiKey=${apiKey}`;
-  var foodJokeElement = document.getElementById('food-joke');
+// Function to generate food trivia
+function generateFoodtrivia() {
+  var triviaURL = `https://api.spoonacular.com/food/trivia/random?apiKey=${apiKey}`;
+  var foodtriviaElement = document.getElementById('food-trivia');
 
-  fetch(jokeURL)
+  fetch(triviaURL)
     .then(response => response.json())
     .then(data => {
-      var joke = data.text;
-      foodJokeElement.textContent = joke;
+      var trivia = data.text;
+      foodtriviaElement.textContent = trivia;
     })
     .catch(function(error) {
-      console.log('An error occurred while fetching the food joke:', error);
+      console.log('An error occurred while fetching the food trivia:', error);
     });
 }
 
 // Build page
-generateFoodJoke();
+generateFoodtrivia();
 
 // Add click event listener to the "Random" button
 var randomButton = document.getElementById('randomBtn');
