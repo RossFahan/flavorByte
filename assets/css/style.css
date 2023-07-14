@@ -9,6 +9,11 @@
     grid-gap: 20px;
     height: 100vh;
   }
+  header {
+    text-align: center; /* Aligns content horizontally */
+    padding: 20px; /* Adds padding around the header */
+    background-color: #f2f2f2; /* Adds a background color */
+  }
   
   @media screen and (max-width: 60em) {
     .holy-grail-grid {
@@ -33,6 +38,7 @@
     grid-column-end: 4;
     -ms-grid-row: 1;
         grid-row-start: 1;
+    text-align: center;
   }
   
   @media screen and (max-width: 60em) {
