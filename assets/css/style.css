@@ -30,6 +30,7 @@
     padding: 1rem;
     border: 1px solid #ededed;
     background-color: #ededed;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
   
   .holy-grail-header {
@@ -75,6 +76,4 @@
     -ms-grid-column: 1;
         grid-column-start: 1;
     grid-column-end: 4;
-  }
-  
-  
+  }  
