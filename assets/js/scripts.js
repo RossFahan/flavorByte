@@ -18,7 +18,7 @@ function fetchRandomRecipe() {
         var recipeImage = document.createElement('img');
         recipeImage.src = recipe.image;
         var recipeInstructions = document.createElement('p');
-        recipeInstructions.textContent = recipe.instructions;
+        recipeInstructions.innerHTML = recipe.instructions;
   
         // Append the recipe elements to the content section
         var contentSection = document.querySelector('.holy-grail-middle');
