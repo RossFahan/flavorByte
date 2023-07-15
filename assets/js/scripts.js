@@ -1,5 +1,39 @@
 var apiKey = '7e69c89705d14234b4fc6e5559121972';
 
+
+
+
+//welcome modal
+
+// Function to check if the user has visited the site before
+function hasVisitedBefore() {
+  return localStorage.getItem('visited') === 'true';
+}
+
+// Function to show the welcome modal
+function showWelcomeModal() {
+  $('#welcomeModal').modal('show');
+}
+
+// Function to close the welcome modal and set "visited" in local storage
+function closeModal() {
+  $('#welcomeModal').modal('hide');
+
+  // Set the "visited" variable to true in local storage
+  localStorage.setItem('visited', 'true');
+}
+
+// Check if the user has visited the site before
+if (!hasVisitedBefore()) {
+  // If not visited before, show the welcome modal
+  showWelcomeModal();
+}
+
+// Attach closeModal() to the modal's close event to set "visited" in local storage
+$('#welcomeModal').on('hidden.bs.modal', function () {
+  closeModal();
+});
+
 // fetch a random recipe from the Spoonacular API
 function fetchRandomRecipe() {
   var recipeURL = `https://api.spoonacular.com/recipes/random?apiKey=${apiKey}`;
@@ -48,6 +82,8 @@ function generateFoodtrivia() {
       console.log('An error occurred while fetching the food trivia:', error);
     });
 }
+
+
 
 // Build page
 generateFoodtrivia();
