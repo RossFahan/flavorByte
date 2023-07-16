@@ -10,23 +10,22 @@
 </head>
 
 <body>
-  <!--add code to make Modal appear only on first page load-->
-  <div id = "welcomeModal" class="modal fade">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title">Welcome to Flavor Byte!</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+    <!-- Modal to show on first page load -->
+    <div id="welcomeModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Welcome to Flavor Byte!</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>You can use Flavor Byte to look up nutritional information of ingredients, recipes and more!</p>
+                    <p>Feel free to play around!</p>
+                </div>
+            </div>
         </div>
-        <div class = "modal-body">
-          <p>You can use Flavor Byte to look up nutritional information of ingredients, recipes and more!</p>
-          <p>Feel free to play around!</p>
-        </div>
-      </div>
     </div>
-  </div> 
 
-  
     <div class="holy-grail-grid">
         <div class="holy-grail-header">
             <h3>Flavor Byte</h3>
@@ -36,7 +35,8 @@
         <div class="holy-grail-left">
             <h3>Sidebar</h3>
             <ul>
-                <li><button id="ingredientsBtn">Ingredients</button></li>
+                <!-- Sidebar buttons  -->
+                <li><button id="recipeSearchBtn">Recipe Search</button></li>
                 <li><button id="mealsBtn">Meals</button></li>
                 <li><button id="caloriesBtn">Calories/Nutritional</button></li>
                 <li><button id="dietBtn">Dietary Restrictions</button></li>
@@ -47,8 +47,12 @@
 
         <div class="holy-grail-middle">
             <h3>Content</h3>
-            <p>Form and output</p>
-
+            <!-- Search form for recipe search -->
+            <div id="recipeSearchForm" style="display: none;">
+                <input type="text" id="searchInput" placeholder="Search for recipes...">
+                <button id="searchBtn">Search</button>
+            </div>
+            <!-- Search results using accordions -->
         </div>
 
         <div class="holy-grail-right">
@@ -63,14 +67,13 @@
             <a href="#">Terms of Service</a>
             <a href="#">Github</a>
         </div>
-
     </div>
 
-
-  <!-- Bootstrap JS (with jQuery and Popper.js) -->
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Bootstrap JS (with jQuery and Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Your JavaScript file -->
     <script src="./assets/js/scripts.js"></script>
 </body>
 
