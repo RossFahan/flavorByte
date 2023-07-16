@@ -7,12 +7,14 @@ var hasVisitedBefore = function () {
 
 // Function to show the welcome modal
 var showWelcomeModal = function () {
-  $('#welcomeModal').modal('show');
+  var welcomeModal = document.getElementById('welcomeModal');
+  welcomeModal.style.display = 'block';
 };
 
 // Function to close the welcome modal and set "visited" in local storage
 var closeModal = function () {
-  $('#welcomeModal').modal('hide');
+  var welcomeModal = document.getElementById('welcomeModal');
+  welcomeModal.style.display = 'none';
   localStorage.setItem('visited', 'true');
 };
 
@@ -22,10 +24,9 @@ if (!hasVisitedBefore()) {
   showWelcomeModal();
 }
 
-// Attach closeModal() to the modal's close event to set "visited" in local storage
-$('#welcomeModal').on('hidden.bs.modal', function () {
-  closeModal();
-});
+// Attach closeModal() to the modal's close button event to set "visited" in local storage
+var closeButton = document.querySelector('#welcomeModal .close');
+closeButton.addEventListener('click', closeModal);
 
 // Function to fetch a random recipe from the Spoonacular API
 var fetchRandomRecipe = function () {
