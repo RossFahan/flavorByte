@@ -1,32 +1,36 @@
 var apiKey = '7e69c89705d14234b4fc6e5559121972';
 
-// Function to check if the user has visited the site before
-var hasVisitedBefore = function () {
-  return localStorage.getItem('visited') === 'true';
-};
+// Check if the page has been loaded previously
+if (!localStorage.getItem("modalDisplayed")) {
+  // Get the modal element
+  var modal = document.getElementById("modal");
 
-// Function to show the welcome modal
-var showWelcomeModal = function () {
-  var welcomeModal = document.getElementById('welcomeModal');
-  welcomeModal.style.display = 'block';
-};
+  // Get the close button element
+  var closeBtn = document.getElementsByClassName("close")[0];
 
-// Function to close the welcome modal and set "visited" in local storage
-var closeModal = function () {
-  var welcomeModal = document.getElementById('welcomeModal');
-  welcomeModal.style.display = 'none';
-  localStorage.setItem('visited', 'true');
-};
+  // Function to open the modal
+  function openModal() {
+      modal.style.display = "block";
+  }
 
-// Check if the user has visited the site before
-if (!hasVisitedBefore()) {
-  // If not visited before, show the welcome modal
-  showWelcomeModal();
+  // Function to close the modal
+  function closeModal() {
+      modal.style.display = "none";
+      // Set a value in local storage to indicate that the modal has been displayed
+      localStorage.setItem("modalDisplayed", true);
+  }
+
+  // Event listener to show the modal on page load
+  window.addEventListener("load", openModal);
+
+  // Event listener for the close button
+  closeBtn.addEventListener("click", closeModal);
+  window.addEventListener("click", function(event) {
+      if (event.target == modal) {
+          closeModal();
+      }
+  });
 }
-
-// Attach closeModal() to the modal's close button event to set "visited" in local storage
-var closeButton = document.querySelector('#welcomeModal .close');
-closeButton.addEventListener('click', closeModal);
 
 // Function to fetch a random recipe from the Spoonacular API
 var fetchRandomRecipe = function () {
