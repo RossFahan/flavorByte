@@ -35,6 +35,60 @@ header {
   text-align: center;
 }
 
+.modalDialog {
+  position: fixed;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: black;
+  z-index: auto;
+  opacity: 0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+
+.modalDialog:target {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modalDialog > div {
+  width: 500px;
+  position: relative;
+  margin: 25% auto;
+  padding: 5px 15px 10px 25px;
+  border-radius: 15px;
+  background: white;
+  background: -moz-linear-gradient(white, grey);
+  background: -webkit-linear-gradient(white, grey);
+  background: -o-linear-gradient(white, grey);
+}
+
+.close {
+  background: grey;
+  color: white;
+  line-height: 30px;
+  position: absolute;
+  right: -15px;
+  text-align: center;
+  top: -10px;
+  width: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  border-radius: 12px;
+  -moz-box-shadow: 5px 5px 9px black;
+  -webkit-box-shadow: 5px 5px 9px black;
+  box-shadow: 5px 5px 9px black;
+}
+
+.close:hover {background: skyblue}
+
 @media screen and (max-width: 60em) {
   .holy-grail-left {
       grid-row-start: 2;
