@@ -49,9 +49,9 @@
 .site-container {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
-  grid-template-rows: 1fr 8fr 1fr;
+  grid-template-rows: 1fr 3fr 1fr;
   grid-gap: 20px;
-  height: 100vh;
+  height: 75vh;
 }
 
 header {
@@ -67,9 +67,9 @@ header {
 }
 
 .header,
-.sidebar,
-.content,
-.shopping-list,
+.sidebar-container,
+.content-container,
+.shopping-list-container, 
 .footer {
   padding: 1rem;
   border: 1px solid #ededed;
@@ -82,6 +82,18 @@ header {
   grid-column-start: 1;
   grid-column-end: 4;
   text-align: center;
+}
+
+.footer {
+  display: flex;
+  grid-column-start: 1;
+  grid-column-end: 4;
+  
+}
+
+.sidebar-container {
+  display: inline-block;
+  align-items: baseline;
 }
 
 @media screen and (max-width: 60em) {
@@ -106,9 +118,4 @@ header {
       grid-column-start: 1;
       grid-column-end: 4;
   }
-}
-
-.footer {
-  grid-column-start: 1;
-  grid-column-end: 4;
 }
