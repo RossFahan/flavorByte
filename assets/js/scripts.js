@@ -1,3 +1,11 @@
+// Get the logo button element
+const logoButton = document.getElementById('logoButton');
+
+// Add a click event listener to the button
+logoButton.addEventListener('click', () => {
+  // Handle the click event here
+  console.log('Button clicked!');
+});
 //Global Variables
 
 var apiKey = '7e69c89705d14234b4fc6e5559121972';
