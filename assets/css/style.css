@@ -119,3 +119,26 @@ header {
       grid-column-end: 4;
   }
 }
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.logo-container {
+  position: relative;
+}
+
+.logo {
+  width: 100px; /* Adjust the size as needed */
+  height: 100px;
+}
+
+/* Position the button on top of the logo */
+#logoButton {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100px; /* Make sure the button covers the logo */
+  height: 100px;
+  opacity: 0; /* Hide the button initially */
+}
