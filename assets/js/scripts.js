@@ -35,7 +35,7 @@ if (!localStorage.getItem("modalDisplayed")) {
   });
 }
 
-// Function to fetch a random recipe from the Spoonacular API
+// Function to fetch a random recipe
 var fetchRandomRecipe = function () {
   var recipeURL = 'https://api.spoonacular.com/recipes/random?apiKey=' + apiKey;
 
@@ -44,10 +44,9 @@ var fetchRandomRecipe = function () {
       return response.json();
     })
     .then(function (data) {
-      console.log("Random:", data)
+      console.log("Random:", data);
       var recipe = data.recipes[0]; // Get the first recipe from the response
-      
-      console.log(data);
+
       // Create HTML elements to display the recipe information
       var recipeContainer = document.createElement('div');
       var recipeTitle = document.createElement('h3');
@@ -56,6 +55,16 @@ var fetchRandomRecipe = function () {
       recipeImage.src = recipe.image;
       var recipeInstructions = document.createElement('p');
       recipeInstructions.innerHTML = recipe.instructions;
+      var ingredientsHeader = document.createElement('h3');
+      ingredientsHeader.textContent = "Ingredients:";
+
+      var recipeIngredients = document.createElement('ul');
+      var ingredients = recipe.extendedIngredients;
+      for (var i = 0; i < ingredients.length; i++) {
+        var ingredientItem = document.createElement('li');
+        ingredientItem.textContent = ingredients[i].original;
+        recipeIngredients.appendChild(ingredientItem);
+      }
 
       // Append the recipe elements to the content section
       contentSection.innerHTML = ''; // Clear existing content
@@ -63,11 +72,14 @@ var fetchRandomRecipe = function () {
       recipeContainer.appendChild(recipeTitle);
       recipeContainer.appendChild(recipeImage);
       recipeContainer.appendChild(recipeInstructions);
+      recipeContainer.appendChild(ingredientsHeader);
+      recipeContainer.appendChild(recipeIngredients);
     })
     .catch(function (error) {
       console.log('Error fetching recipe:', error);
     });
 };
+
 
 // Function to generate food trivia
 var generateFoodTrivia = function () {
