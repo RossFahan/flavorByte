@@ -53,7 +53,7 @@ var fetchRandomRecipe = function () {
       recipeInstructions.innerHTML = recipe.instructions;
 
       // Append the recipe elements to the content section
-      var contentSection = document.querySelector('.holy-grail-middle');
+      var contentSection = document.querySelector('.content');
       contentSection.innerHTML = ''; // Clear existing content
       contentSection.appendChild(recipeContainer);
       recipeContainer.appendChild(recipeTitle);
@@ -142,7 +142,7 @@ var searchRecipes = function (query) {
       var numPages = Math.ceil(recipes.length / numPerPage);
 
       // Clear previous search results
-      var contentSection = document.querySelector('.holy-grail-middle');
+      var contentSection = document.querySelector('.content');
       contentSection.innerHTML = ''; // Clear existing content
 
       // Loop through the recipes and create accordions for each page
