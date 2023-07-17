@@ -130,7 +130,7 @@ var createAccordion = function (recipes) {
 
 // Function to search for recipes based on user input and display results using accordions
 var searchRecipes = function (query) {
-  var recipeURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey + '&query=' + encodeURIComponent(query);
+  var recipeURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey + '&query=' + encodeURIComponent(query) + "&addRecipeInformation=true&addRecipeNutrition=true&maxReadyTime=true&";
 
   fetch(recipeURL)
     .then(function (response) {
