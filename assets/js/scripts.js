@@ -202,3 +202,12 @@ recipeSearchButton.addEventListener('click', showRecipeSearchForm);
 // Add click event listener to the "Search" button inside the recipe search form
 var searchButton = document.getElementById('searchBtn');
 searchButton.addEventListener('click', handleSearch);
+
+body.classList.toggle("dark-mode");
+  
+  var button = document.getElementById("mode-toggle");
+  if (body.classList.contains("dark-mode")) {
+      button.textContent = "Light Mode";
+  } else {
+      button.textContent = "Dark Mode";
+  }
