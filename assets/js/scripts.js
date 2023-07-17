@@ -1,6 +1,9 @@
-var apiKey = '7e69c89705d14234b4fc6e5559121972';
+//Global Variables
 
-// Check if the page has been loaded previously
+var apiKey = '7e69c89705d14234b4fc6e5559121972';
+var contentSection = document.querySelector('.content');
+
+// Give welcome modal on first time visiting page
 if (!localStorage.getItem("modalDisplayed")) {
   // Get the modal element
   var modal = document.getElementById("modal");
@@ -41,8 +44,10 @@ var fetchRandomRecipe = function () {
       return response.json();
     })
     .then(function (data) {
+      console.log("Random:", data)
       var recipe = data.recipes[0]; // Get the first recipe from the response
-
+      
+      console.log(data);
       // Create HTML elements to display the recipe information
       var recipeContainer = document.createElement('div');
       var recipeTitle = document.createElement('h3');
@@ -53,7 +58,6 @@ var fetchRandomRecipe = function () {
       recipeInstructions.innerHTML = recipe.instructions;
 
       // Append the recipe elements to the content section
-      var contentSection = document.querySelector('.content');
       contentSection.innerHTML = ''; // Clear existing content
       contentSection.appendChild(recipeContainer);
       recipeContainer.appendChild(recipeTitle);
@@ -77,6 +81,7 @@ var generateFoodTrivia = function () {
     .then(function (data) {
       var trivia = data.text;
       foodtriviaElement.textContent = trivia;
+      console.log("Trivia:", data);
     })
     .catch(function (error) {
       console.log('An error occurred while fetching the food trivia:', error);
@@ -130,19 +135,20 @@ var createAccordion = function (recipes) {
 
 // Function to search for recipes based on user input and display results using accordions
 var searchRecipes = function (query) {
-  var recipeURL = 'https://api.spoonacular.com/recipes/complexSearch?apiKey=' + apiKey + '&query=' + encodeURIComponent(query) + "&addRecipeInformation=true&addRecipeNutrition=true&maxReadyTime=true&";
+
+  var recipeURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&addRecipeInformation=true&=addRecipeNutrition`;
 
   fetch(recipeURL)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
+      console.log("Search Data:", data)
       var recipes = data.results;
       var numPerPage = 10;
       var numPages = Math.ceil(recipes.length / numPerPage);
 
       // Clear previous search results
-      var contentSection = document.querySelector('.content');
       contentSection.innerHTML = ''; // Clear existing content
 
       // Loop through the recipes and create accordions for each page
