@@ -1,4 +1,13 @@
 /* Modal container */
+:root {
+--charcoal: #264653ff;
+--persian-green: #2a9d8fff;
+--saffron: #e9c46aff;
+--sandy-brown: #f4a261ff;
+--lemon-chiffon: #fcf6bdff;
+--uranian-blue: #a9def9ff;
+}
+
 #modal {
   display: none;
   position: fixed;
@@ -13,7 +22,8 @@
 
 /* Modal content */
 .modal-content {
-  background-color: #fefefe;
+  background-color: var(--charcoal);
+  color: var(--saffron);
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
@@ -63,7 +73,8 @@ header {
 .footer {
   padding: 1rem;
   border: 1px solid #ededed;
-  background-color: #ededed;
+  background-color: var(--charcoal);
+  color: var(--lemon-chiffon);
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
