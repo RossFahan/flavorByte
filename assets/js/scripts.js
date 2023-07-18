@@ -108,6 +108,8 @@ var generateFoodTrivia = function () {
     });
 };
 
+
+//Accordion Function
 var createAccordion = function (recipe) {
   var accordion = document.createElement('div');
   accordion.classList.add('accordion');
@@ -157,22 +159,41 @@ var createAccordion = function (recipe) {
     });
   });
 
-  // Link to view recipe
-  var viewRecipeLink = document.createElement('a');
-  viewRecipeLink.href = recipe.sourceUrl;
-  viewRecipeLink.target = '_blank';
-  viewRecipeLink.textContent = 'View Recipe Source Page';
-
   // Append elements to the recipe content
   recipeContent.appendChild(recipeImage);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(recipeSummary);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(recipeInstructions);
-  recipeContent.appendChild(document.createElement('br'));
-  recipeContent.appendChild(viewRecipeLink);
 
+  // Append elements to the accordion body
   accordionBody.appendChild(recipeContent);
+
+  // Toggle visibility of the ingredients list when the accordion is expanded or collapsed
+  checkboxInput.addEventListener('change', function () {
+    var targetAccordionBody = this.parentNode.querySelector('.accordion-body');
+    if (this.checked) {
+      getRecipeIngredientsById(recipe.id)
+        .then(function (ingredients) {
+          var ingredientsList = document.createElement('ul');
+          ingredients.forEach(function (ingredient) {
+            var ingredientItem = document.createElement('li');
+            ingredientItem.textContent = ingredient.name;
+            ingredientsList.appendChild(ingredientItem);
+          });
+          targetAccordionBody.appendChild(ingredientsList);
+        })
+        .catch(function (error) {
+          console.log('Error fetching recipe ingredients:', error);
+        });
+    } else {
+      // Clear the ingredients list when the accordion is collapsed
+      var ingredientsList = targetAccordionBody.querySelector('ul');
+      if (ingredientsList) {
+        targetAccordionBody.removeChild(ingredientsList);
+      }
+    }
+  });
 
   // Append elements to the accordion
   accordion.appendChild(checkboxInput);
@@ -228,6 +249,7 @@ var getRecipeIngredientsById = function (recipeId) {
       return response.json();
     })
     .then(function (data) {
+      console.log("Ingredients:", data);
       return data.ingredients;
     })
     .catch(function (error) {

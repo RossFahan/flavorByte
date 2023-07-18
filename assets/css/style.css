@@ -1,11 +1,18 @@
-/* Modal container */
 :root {
 --charcoal: #264653ff;
 --persian-green: #2a9d8fff;
 --saffron: #e9c46aff;
 --sandy-brown: #f4a261ff;
 --lemon-chiffon: #fcf6bdff;
---uranian-blue: #a9def9ff;
+--uranian-blue: rgb(118, 187, 222);
+}
+/* Font family */
+body {
+  font-family: 'Comfortaa', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Paytone One', sans-serif;
 }
 
 #modal {
@@ -56,6 +63,7 @@
   grid-template-rows: 1fr 8fr 1fr;
   grid-gap: 20px;
   height: 100vh;
+  background-color: var(--persian-green);
 }
 
 header {
@@ -70,8 +78,31 @@ header {
   }
 }
 
+/* Additional styles for the navbar buttons */
+.btn {
+  border-radius: 14px; /* Make the buttons round */
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 10px; /* Add margin between the buttons */
+  text-align: center; /* Center the text inside the buttons */
+  text-decoration: none; /* Remove underline style from buttons */
+  color: #fff; /* Set the text color to white */
+  background-color: var(--persian-green);
+  transition: background-color 0.7s;
+}
+
+.navbar .ul btn {
+max-width: fit-content;
+}
+
+
+/* Change the background color on button hover */
+.btn:hover {
+  background-color: var(--uranian-blue);
+}
+
 .header,
-.sidebar,
+.navbar,
 .content,
 .ingredients-list, 
 .footer {
@@ -79,7 +110,6 @@ header {
   border: 1px solid #ededed;
   background-color: var(--charcoal);
   color: var(--lemon-chiffon);
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .header {
@@ -90,18 +120,60 @@ header {
 
 .footer {
   display: flex;
+  font-size: 1.6rem;
   grid-column-start: 1;
   grid-column-end: 4;
-
+  padding: 1rem;
+  justify-content: space-evenly;
+  text-decoration: none;
+  color: var(--lemon-chiffon); /* Set the link color to match the site theme */
 }
 
-.sidebar {
-  display: inline-block;
+.footer a {
+  text-decoration: none;
+  color: var(---lemon-chiffon); /* Set the link color to your desired color */
+}
+
+/* Make the button take up the entire width */
+#searchBtn{
+  border-radius: 14px; /* Make the buttons round */
+  height: 40px;
+  width: 100px;
+  font-weight: bold;
+  font-size: .95rem;
+  text-align: center; /* Center the text inside the buttons */
+  color: #fff; /* Set the text color to white */
+  background-color: var(--persian-green);
+  transition: background-color 0.7s;
+}
+
+.accordion-header h4 {
+  font-size: 24px; /* Adjust the font size as per your preference */
+  font-weight: bold; /* Optional: Add bold style if desired */
+}
+
+/* Optional: Add some spacing between the accordion headers and body */
+.accordion-body {
+  margin-top: 10px;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: column;
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
   align-items: baseline;
+  justify-content: space-around;
+  list-style-type: none;
 }
+
 
 @media screen and (max-width: 60em) {
-  .sidebar {
+  .navbar {
       grid-row-start: 2;
       grid-column-start: 1;
       grid-column-end: 4;
