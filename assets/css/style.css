@@ -75,6 +75,7 @@ header {
 @media screen and (max-width: 60em) {
   .site-container {
       grid-template-rows: 2fr 1fr 5fr 1fr;
+      background-color: var(--persian-green);
   }
 }
 
@@ -191,6 +192,22 @@ max-width: fit-content;
 @media screen and (max-width: 60em) {
   .right-nav {
       grid-row-start: 4;
+      grid-column-start: 1;
+      grid-column-end: 4;
+  }
+}
+
+@media screen and (max-width: 60em) {
+  .ingredients-list {
+      grid-row-start: 5;
+      grid-column-start: 1;
+      grid-column-end: 4;
+  }
+}
+
+@media screen and (max-width: 60em) {
+  .footer {
+      grid-row-start: 6;
       grid-column-start: 1;
       grid-column-end: 4;
   }
