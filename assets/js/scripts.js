@@ -15,14 +15,14 @@ if (!localStorage.getItem("modalDisplayed")) {
 
   // Function to open the modal
   function openModal() {
-      modal.style.display = "block";
+    modal.style.display = "block";
   }
 
   // Function to close the modal
   function closeModal() {
-      modal.style.display = "none";
-      // Set a value in local storage to indicate that the modal has been displayed
-      localStorage.setItem("modalDisplayed", true);
+    modal.style.display = "none";
+    // Set a value in local storage to indicate that the modal has been displayed
+    localStorage.setItem("modalDisplayed", true);
   }
 
   // Event listener to show the modal on page load
@@ -30,10 +30,10 @@ if (!localStorage.getItem("modalDisplayed")) {
 
   // Event listener for the close button
   closeBtn.addEventListener("click", closeModal);
-  window.addEventListener("click", function(event) {
-      if (event.target == modal) {
-          closeModal();
-      }
+  window.addEventListener("click", function (event) {
+    if (event.target == modal) {
+      closeModal();
+    }
   });
 }
 
@@ -112,9 +112,6 @@ var createAccordion = function (recipe) {
   var accordion = document.createElement('div');
   accordion.classList.add('accordion');
 
-  // Add data attribute with Spoonacular ID
-  accordion.setAttribute('data-recipe-id', recipe.id);
-
   var checkboxInput = document.createElement('input');
   checkboxInput.type = 'checkbox';
   checkboxInput.id = 'accordion-' + recipe.id;
@@ -148,16 +145,30 @@ var createAccordion = function (recipe) {
   var recipeSummary = document.createElement('p');
   recipeSummary.innerHTML = recipe.summary;
 
+  // Recipe instructions
+  var recipeInstructions = document.createElement('ul');
+  recipeInstructions.textContent = 'Cooking Instructions:';
+  var instructionsArray = recipe.analyzedInstructions.map(instruction => instruction.steps.map(step => step.step));
+  instructionsArray.forEach(instructionSteps => {
+    instructionSteps.forEach(step => {
+      var listItem = document.createElement('li');
+      listItem.textContent = step;
+      recipeInstructions.appendChild(listItem);
+    });
+  });
+
   // Link to view recipe
   var viewRecipeLink = document.createElement('a');
   viewRecipeLink.href = recipe.sourceUrl;
-  viewRecipeLink.target = '_blank'; //preferred over document.location.href
+  viewRecipeLink.target = '_blank';
   viewRecipeLink.textContent = 'View Recipe Source Page';
 
   // Append elements to the recipe content
   recipeContent.appendChild(recipeImage);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(recipeSummary);
+  recipeContent.appendChild(document.createElement('br'));
+  recipeContent.appendChild(recipeInstructions);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(viewRecipeLink);
 
@@ -205,6 +216,25 @@ var searchRecipes = function (query) {
     });
 };
 
+// Function to fetch recipe Ingredients
+var getRecipeIngredientsById = function (recipeId) {
+  var recipeURL = `https://api.spoonacular.com/recipes/${recipeId}/ingredientWidget.json?apiKey=${apiKey}`;
+
+  return fetch(recipeURL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      return data.ingredients;
+    })
+    .catch(function (error) {
+      console.log('Error fetching recipe ingredients:', error);
+      return [];
+    });
+};
 
 
 // Function to show the recipe search form when the "Recipe Search" button is clicked
