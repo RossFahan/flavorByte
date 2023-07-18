@@ -3,6 +3,7 @@
 var apiKey = '7e69c89705d14234b4fc6e5559121972';
 var contentSection = document.querySelector('.content');
 var recipeSearchForm = document.getElementById('recipeSearchForm');
+var ingredientsListContainer = document.querySelector('.ingredients-list ul');
 
 // Give welcome modal on first time visiting page
 if (!localStorage.getItem("modalDisplayed")) {
@@ -111,6 +112,9 @@ var createAccordion = function (recipe) {
   var accordion = document.createElement('div');
   accordion.classList.add('accordion');
 
+  // Add data attribute with Spoonacular ID
+  accordion.setAttribute('data-recipe-id', recipe.id);
+
   var checkboxInput = document.createElement('input');
   checkboxInput.type = 'checkbox';
   checkboxInput.id = 'accordion-' + recipe.id;
@@ -147,7 +151,7 @@ var createAccordion = function (recipe) {
   // Link to view recipe
   var viewRecipeLink = document.createElement('a');
   viewRecipeLink.href = recipe.sourceUrl;
-  viewRecipeLink.target = '_blank';
+  viewRecipeLink.target = '_blank'; //preferred over document.location.href
   viewRecipeLink.textContent = 'View Recipe Source Page';
 
   // Append elements to the recipe content
@@ -220,8 +224,9 @@ var showRecipeSearchForm = function () {
   searchFormContainer.appendChild(searchInput);
   searchFormContainer.appendChild(searchButton);
 
-  // Clear previous content and append the search form container
-  contentSection.innerHTML = ''; // Clear existing content
+  // Clear previous content and append the search form container and ingredients list
+  ingredientsListContainer.innerHTML = '';
+  contentSection.innerHTML = '';
   contentSection.appendChild(searchFormContainer);
 
   // Add click event listener to the "Search" button inside the recipe search form
