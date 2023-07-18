@@ -108,6 +108,8 @@ var generateFoodTrivia = function () {
     });
 };
 
+
+//Accordion Function
 var createAccordion = function (recipe) {
   var accordion = document.createElement('div');
   accordion.classList.add('accordion');
@@ -157,22 +159,41 @@ var createAccordion = function (recipe) {
     });
   });
 
-  // Link to view recipe
-  var viewRecipeLink = document.createElement('a');
-  viewRecipeLink.href = recipe.sourceUrl;
-  viewRecipeLink.target = '_blank';
-  viewRecipeLink.textContent = 'View Recipe Source Page';
-
   // Append elements to the recipe content
   recipeContent.appendChild(recipeImage);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(recipeSummary);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(recipeInstructions);
-  recipeContent.appendChild(document.createElement('br'));
-  recipeContent.appendChild(viewRecipeLink);
 
+  // Append elements to the accordion body
   accordionBody.appendChild(recipeContent);
+
+  // Toggle visibility of the ingredients list when the accordion is expanded or collapsed
+  checkboxInput.addEventListener('change', function () {
+    var targetAccordionBody = this.parentNode.querySelector('.accordion-body');
+    if (this.checked) {
+      getRecipeIngredientsById(recipe.id)
+        .then(function (ingredients) {
+          var ingredientsList = document.createElement('ul');
+          ingredients.forEach(function (ingredient) {
+            var ingredientItem = document.createElement('li');
+            ingredientItem.textContent = ingredient.name;
+            ingredientsList.appendChild(ingredientItem);
+          });
+          targetAccordionBody.appendChild(ingredientsList);
+        })
+        .catch(function (error) {
+          console.log('Error fetching recipe ingredients:', error);
+        });
+    } else {
+      // Clear the ingredients list when the accordion is collapsed
+      var ingredientsList = targetAccordionBody.querySelector('ul');
+      if (ingredientsList) {
+        targetAccordionBody.removeChild(ingredientsList);
+      }
+    }
+  });
 
   // Append elements to the accordion
   accordion.appendChild(checkboxInput);
@@ -228,6 +249,7 @@ var getRecipeIngredientsById = function (recipeId) {
       return response.json();
     })
     .then(function (data) {
+      console.log("Ingredients:", data);
       return data.ingredients;
     })
     .catch(function (error) {
@@ -293,7 +315,81 @@ recipeSearchButton.addEventListener('click', showRecipeSearchForm);
 var searchButton = document.getElementById('searchBtn');
 searchButton.addEventListener('click', handleSearch);
 
+// Function to fetch random beer data
+function fetchRandomBeer() {
+  var url = 'https://api.punkapi.com/v2/beers/random';
+
+  return fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Random Beer Data:', data);
+      return data;
+    })
+    .catch(error => {
+      console.error('Error fetching random beer:', error);
+      return null;
+    });
+}
+
+// Function to display the fetched beer data in the content section
+function displayBeerData(beerData) {
+  if (beerData) {
+    var contentSection = document.querySelector('.content');
+    var beer = beerData[0];
+
+    // Create elements to display beer data
+    var beerNameElement = document.createElement('h2');
+    beerNameElement.textContent = beer.name;
+
+    var beerTaglineElement = document.createElement('p');
+    beerTaglineElement.textContent = beer.tagline;
+
+    var beerDescriptionElement = document.createElement('p');
+    beerDescriptionElement.textContent = beer.description;
+
+    var beerImageElement = document.createElement('img');
+    beerImageElement.src = beer.image_url;
+    beerImageElement.alt = beer.name;
+    beerImageElement.style.maxWidth = '100%'; // Limit image width to fit the container
+    beerImageElement.style.maxHeight = '300px'; // Set the maximum height to 300 pixels
+    beerImageElement.style.height = 'auto'; // Automatically adjust height to maintain aspect ratio
+
+    var beerFoodPairingElement = document.createElement('ul');
+    beerFoodPairingElement.innerHTML = '<h3>Food Pairing:</h3>';
+    beer.food_pairing.forEach(function (food) {
+      var liElement = document.createElement('li');
+      liElement.textContent = food;
+      beerFoodPairingElement.appendChild(liElement);
+    });
+
+    // Clear previous content and append new elements
+    contentSection.innerHTML = '';
+    contentSection.appendChild(beerNameElement);
+    contentSection.appendChild(beerTaglineElement);
+    contentSection.appendChild(beerDescriptionElement);
+    contentSection.appendChild(beerImageElement);
+    contentSection.appendChild(beerFoodPairingElement);
+  } else {
+    console.error('Invalid beer data.');
+  }
+}
+
+// Add click event listener to the fetch beer button
+var randomBeerBtn = document.getElementById('randomBeerBtn');
+randomBeerBtn.addEventListener('click', () => {
+  fetchRandomBeer()
+    .then(data => {
+      displayBeerData(data);
+    });
+});
+
 // Adding JS for tooltip from popper.js library
 $document.ready(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
+

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Byte</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/reset.css">
+    <link href="https://fonts.googleapis.com/css2?family=Paytone+One&family=Comfortaa&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
@@ -19,7 +20,8 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <h2>Welcome to Flavor Byte!</h2>
-            <p>Feel free to play around!</p>
+            <p>Hungry for Inspiration?</p>
+            <p>Welcome to Flavor Byte! 🍳🍔🍣</p>
         </div>
     </div>
 
@@ -29,27 +31,23 @@
             <div id="food-trivia"></div>
         </div>
 
-        <div class="sidebar">
-            <h3>Sidebar</h3>
-            <ul>
-                <!-- Sidebar buttons  -->
-                <li><button id="recipeSearchBtn" data-toggle="tooltip" title="Click here to search for a recipe">Recipe
+        <div class="navbar">
+            <ul class="btn-group btn-group-block">
+                <!-- navbar buttons  -->
+                <li><button class="btn" id="recipeSearchBtn" data-toggle="tooltip" title="Click here to search for a recipe">Recipe
                         Search</button></li>
-                <li><button id="mealsBtn" data-toggle="tooltip" title="Click here to track your meals">Meals</button>
-                </li>
-                <li><button id="caloriesBtn" data-toggle="tooltip"
+                <li><button class="btn" id="caloriesBtn" data-toggle="tooltip"
                         title="Click here for Nutritional Information">Calories/Nutritional</button></li>
-                <li><button id="dietBtn" data-toggle="tooltip" title="Click here to add Dietary Restrictions">Dietary
+                <li><button class="btn" id="dietBtn" data-toggle="tooltip" title="Click here to add Dietary Restrictions">Dietary
                         Restrictions</button></li>
-                <li><button id="priceBtn" data-toggle="tooltip"
-                        title="Click here to look up the price of ingredients">Price</button></li>
-                <li><button id="randomBtn" data-toggle="tooltip"
-                        title="Click here to generate a random recipe">Random</button></li>
+                <li><button class="btn" id="randomBtn" data-toggle="tooltip"
+                        title="Click here to generate a random recipe">Random Recipe</button></li>
+                <li><button class="btn" id="randomBeerBtn" data-toggle="tooltip"
+                        title="Click here to generate a random beer">Random Beer</button></li>
             </ul>
         </div>
 
         <div class="content">
-            <h3>Content</h3>
             <!-- Search form for recipe search -->
             <div id="recipeSearchForm" style="display: none;">
                 <input type="text" id="searchInput" placeholder="Search for recipes...">
