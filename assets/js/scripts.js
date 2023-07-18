@@ -169,32 +169,6 @@ var createAccordion = function (recipe) {
   // Append elements to the accordion body
   accordionBody.appendChild(recipeContent);
 
-  // Toggle visibility of the ingredients list when the accordion is expanded or collapsed
-  checkboxInput.addEventListener('change', function () {
-    var targetAccordionBody = this.parentNode.querySelector('.accordion-body');
-    if (this.checked) {
-      getRecipeIngredientsById(recipe.id)
-        .then(function (ingredients) {
-          var ingredientsList = document.createElement('ul');
-          ingredients.forEach(function (ingredient) {
-            var ingredientItem = document.createElement('li');
-            ingredientItem.textContent = ingredient.name;
-            ingredientsList.appendChild(ingredientItem);
-          });
-          targetAccordionBody.appendChild(ingredientsList);
-        })
-        .catch(function (error) {
-          console.log('Error fetching recipe ingredients:', error);
-        });
-    } else {
-      // Clear the ingredients list when the accordion is collapsed
-      var ingredientsList = targetAccordionBody.querySelector('ul');
-      if (ingredientsList) {
-        targetAccordionBody.removeChild(ingredientsList);
-      }
-    }
-  });
-
   // Append elements to the accordion
   accordion.appendChild(checkboxInput);
   accordion.appendChild(accordionHeader);
@@ -387,3 +361,24 @@ randomBeerBtn.addEventListener('click', () => {
       displayBeerData(data);
     });
 });
+
+var fetchBeersByFood = function (food) {
+  var apiUrl = 'https://api.punkapi.com/v2/beers?food=' + encodeURIComponent(food);
+
+  fetch(apiUrl)
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      console.log("Beers matching the food:", data);
+    })
+    .catch(function (error) {
+      console.log('Error fetching beers:', error);
+    });
+};
+
+// Example usage:
+fetchBeersByFood('pizza');
