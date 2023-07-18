@@ -20,6 +20,10 @@
   background-color: rgba(0, 0, 0, 0.4);
 }
 
+#food-trivia {
+  font-style: italic;
+}
+
 /* Modal content */
 .modal-content {
   background-color: var(--charcoal);
@@ -69,7 +73,7 @@ header {
 .header,
 .sidebar,
 .content,
-.shopping-list, 
+.ingredients-list, 
 .footer {
   padding: 1rem;
   border: 1px solid #ededed;

@@ -55,8 +55,6 @@ var fetchRandomRecipe = function () {
       recipeImage.src = recipe.image;
       var recipeInstructions = document.createElement('p');
       recipeInstructions.innerHTML = recipe.instructions;
-      var ingredientsHeader = document.createElement('h3');
-      ingredientsHeader.textContent = "Ingredients:";
 
       var recipeIngredients = document.createElement('ul');
       var ingredients = recipe.extendedIngredients;
@@ -66,14 +64,22 @@ var fetchRandomRecipe = function () {
         recipeIngredients.appendChild(ingredientItem);
       }
 
+      // Clear previous search results
+      var ingredientsListContainer = document.querySelector('.ingredients-list ul');
+      ingredientsListContainer.innerHTML = ''; // Clear existing content
+      ingredientsListContainer.appendChild(recipeIngredients);
+
       // Append the recipe elements to the content section
       contentSection.innerHTML = ''; // Clear existing content
       contentSection.appendChild(recipeContainer);
       recipeContainer.appendChild(recipeTitle);
       recipeContainer.appendChild(recipeImage);
       recipeContainer.appendChild(recipeInstructions);
-      recipeContainer.appendChild(ingredientsHeader);
-      recipeContainer.appendChild(recipeIngredients);
+
+      // Instead of appending the ingredients to recipeContainer, we'll append them directly to the "ingredients-list" container
+      var ingredientsListContainer = document.querySelector('.ingredients-list ul');
+      ingredientsListContainer.innerHTML = ''; // Clear existing content
+      ingredientsListContainer.appendChild(recipeIngredients);
     })
     .catch(function (error) {
       console.log('Error fetching recipe:', error);
@@ -196,6 +202,7 @@ var searchRecipes = function (query) {
 
 // Function to show the recipe search form when the "Recipe Search" button is clicked
 var showRecipeSearchForm = function () {
+
   var recipeSearchForm = document.getElementById('recipeSearchForm');
   recipeSearchForm.style.display = 'block';
 };
