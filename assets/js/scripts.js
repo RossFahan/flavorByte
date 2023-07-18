@@ -2,6 +2,7 @@
 
 var apiKey = '7e69c89705d14234b4fc6e5559121972';
 var contentSection = document.querySelector('.content');
+var recipeSearchForm = document.getElementById('recipeSearchForm');
 
 // Give welcome modal on first time visiting page
 if (!localStorage.getItem("modalDisplayed")) {
@@ -170,7 +171,7 @@ var createAccordion = function (recipe) {
 // Function to search for recipes based on user input and display results using accordions
 var searchRecipes = function (query) {
 
-  var recipeURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&addRecipeInformation=true&=addRecipeNutrition`;
+  var recipeURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&addRecipeInformation=true&addRecipeNutrition=true&includeIngredients=true`;
 
   fetch(recipeURL)
     .then(function (response) {
@@ -200,11 +201,38 @@ var searchRecipes = function (query) {
     });
 };
 
+
+
 // Function to show the recipe search form when the "Recipe Search" button is clicked
 var showRecipeSearchForm = function () {
+  var searchFormContainer = document.createElement('div');
+  searchFormContainer.classList.add('search-form-container');
 
-  var recipeSearchForm = document.getElementById('recipeSearchForm');
-  recipeSearchForm.style.display = 'block';
+  var searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.id = 'searchInput';
+  searchInput.placeholder = 'Search for recipes...';
+
+  var searchButton = document.createElement('button');
+  searchButton.id = 'searchBtn';
+  searchButton.textContent = 'Search';
+
+  searchFormContainer.appendChild(searchInput);
+  searchFormContainer.appendChild(searchButton);
+
+  // Clear previous content and append the search form container
+  contentSection.innerHTML = ''; // Clear existing content
+  contentSection.appendChild(searchFormContainer);
+
+  // Add click event listener to the "Search" button inside the recipe search form
+  searchButton.addEventListener('click', handleSearch);
+
+  // Add keyup event listener on the search input to trigger search on Enter key press
+  searchInput.addEventListener('keyup', function (event) {
+    if (event.keyCode === 13) {
+      handleSearch();
+    }
+  });
 };
 
 // Function to handle search button click
