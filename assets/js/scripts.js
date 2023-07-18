@@ -101,49 +101,56 @@ var generateFoodTrivia = function () {
 };
 
 // Function to create an accordion element with recipe details
-var createAccordion = function (recipes) {
+var createAccordion = function (recipe) {
   var accordion = document.createElement('div');
-  accordion.classList.add('accordion', 'mb-3');
+  accordion.classList.add('accordion');
 
-  // Loop through the recipes and create accordion items for each recipe
-  recipes.forEach(function (recipe) {
-    var accordionItem = document.createElement('div');
-    accordionItem.classList.add('card');
+  var checkboxInput = document.createElement('input');
+  checkboxInput.type = 'checkbox';
+  checkboxInput.id = 'accordion-' + recipe.id;
+  checkboxInput.name = 'accordion-checkbox';
+  checkboxInput.hidden = true;
 
-    var accordionHeader = document.createElement('div');
-    accordionHeader.classList.add('card-header');
+  var accordionHeader = document.createElement('label');
+  accordionHeader.classList.add('accordion-header');
+  accordionHeader.htmlFor = 'accordion-' + recipe.id;
 
-    var recipeTitle = document.createElement('h5');
-    recipeTitle.classList.add('mb-0');
-    recipeTitle.innerHTML = '<button class="btn btn-link" data-toggle="collapse" data-target="#recipe-' + recipe.id + '">\n                               ' + recipe.title + '\n                             </button>';
+  var arrowIcon = document.createElement('i');
+  arrowIcon.classList.add('icon', 'icon-arrow-right', 'mr-1');
 
-    accordionHeader.appendChild(recipeTitle);
-    accordionItem.appendChild(accordionHeader);
+  var recipeTitle = document.createElement('span');
+  recipeTitle.textContent = recipe.title;
 
-    var accordionCollapse = document.createElement('div');
-    accordionCollapse.id = 'recipe-' + recipe.id;
-    accordionCollapse.classList.add('collapse');
+  accordionHeader.appendChild(arrowIcon);
+  accordionHeader.appendChild(recipeTitle);
 
-    var accordionBody = document.createElement('div');
-    accordionBody.classList.add('card-body');
-    var recipeImage = document.createElement('img');
-    recipeImage.src = recipe.image;
+  var accordionBody = document.createElement('div');
+  accordionBody.classList.add('accordion-body');
 
-    var viewRecipeLink = document.createElement('a');
-    viewRecipeLink.href = recipe.sourceUrl;
-    viewRecipeLink.target = '_blank';
-    viewRecipeLink.textContent = 'View Recipe';
+  // Create the content for the accordion body (you can customize this part)
+  var recipeContent = document.createElement('div');
+  var recipeImage = document.createElement('img');
+  recipeImage.src = recipe.image;
 
-    accordionBody.appendChild(recipeImage);
-    accordionBody.appendChild(document.createElement('br'));
-    accordionBody.appendChild(viewRecipeLink);
-    accordionCollapse.appendChild(accordionBody);
-    accordionItem.appendChild(accordionCollapse);
-    accordion.appendChild(accordionItem);
-  });
+  var viewRecipeLink = document.createElement('a');
+  viewRecipeLink.href = recipe.sourceUrl;
+  viewRecipeLink.target = '_blank';
+  viewRecipeLink.textContent = 'View Recipe';
+
+  recipeContent.appendChild(recipeImage);
+  recipeContent.appendChild(document.createElement('br'));
+  recipeContent.appendChild(viewRecipeLink);
+
+  accordionBody.appendChild(recipeContent);
+
+  // Append elements to the accordion
+  accordion.appendChild(checkboxInput);
+  accordion.appendChild(accordionHeader);
+  accordion.appendChild(accordionBody);
 
   return accordion;
 };
+
 
 // Function to search for recipes based on user input and display results using accordions
 var searchRecipes = function (query) {
@@ -165,8 +172,12 @@ var searchRecipes = function (query) {
 
       // Loop through the recipes and create accordions for each page
       for (var i = 0; i < numPages; i++) {
-        var accordion = createAccordion(recipes.slice(i * numPerPage, (i + 1) * numPerPage));
-        contentSection.appendChild(accordion);
+        var pageStartIndex = i * numPerPage;
+        var pageRecipes = recipes.slice(pageStartIndex, pageStartIndex + numPerPage);
+        pageRecipes.forEach(function (recipe) {
+          var accordion = createAccordion(recipe);
+          contentSection.appendChild(accordion);
+        });
       }
     })
     .catch(function (error) {
