@@ -100,7 +100,6 @@ var generateFoodTrivia = function () {
     });
 };
 
-// Function to create an accordion element with recipe details
 var createAccordion = function (recipe) {
   var accordion = document.createElement('div');
   accordion.classList.add('accordion');
@@ -127,17 +126,27 @@ var createAccordion = function (recipe) {
   var accordionBody = document.createElement('div');
   accordionBody.classList.add('accordion-body');
 
-  // Create the content for the accordion body (you can customize this part)
+  // Create the content for the accordion body
   var recipeContent = document.createElement('div');
+
+  // Recipe image
   var recipeImage = document.createElement('img');
   recipeImage.src = recipe.image;
 
+  // Recipe summary
+  var recipeSummary = document.createElement('p');
+  recipeSummary.innerHTML = recipe.summary;
+
+  // Link to view recipe
   var viewRecipeLink = document.createElement('a');
   viewRecipeLink.href = recipe.sourceUrl;
   viewRecipeLink.target = '_blank';
-  viewRecipeLink.textContent = 'View Recipe';
+  viewRecipeLink.textContent = 'View Recipe Source Page';
 
+  // Append elements to the recipe content
   recipeContent.appendChild(recipeImage);
+  recipeContent.appendChild(document.createElement('br'));
+  recipeContent.appendChild(recipeSummary);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(viewRecipeLink);
 
