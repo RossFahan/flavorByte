@@ -84,16 +84,33 @@ header {
   text-align: center;
 }
 
+.sidebar {
+  display: inline-block;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.sidebar h3 {
+  text-align: flex-start;
+}
+.sidebar ul {
+  padding: 0;
+}
+
+.sidebar li {
+  list-style-type: none;
+  align-items: flex-start;
+  margin: 10px;
+}
+
 .footer {
   display: flex;
   grid-column-start: 1;
   grid-column-end: 4;
-
 }
 
-.sidebar {
-  display: inline-block;
-  align-items: baseline;
+.footer a {
+  margin: 10px;
 }
 
 @media screen and (max-width: 60em) {
@@ -113,7 +130,7 @@ header {
 }
 
 @media screen and (max-width: 60em) {
-  .right-nav {
+  .shopping-list {
       grid-row-start: 4;
       grid-column-start: 1;
       grid-column-end: 4;
