@@ -202,3 +202,8 @@ recipeSearchButton.addEventListener('click', showRecipeSearchForm);
 // Add click event listener to the "Search" button inside the recipe search form
 var searchButton = document.getElementById('searchBtn');
 searchButton.addEventListener('click', handleSearch);
+
+// Add tooltip functionality to the calorie/nutirition button
+// $(document).ready(function () {
+  // $('[data-toggle="tooltip"]').tooltip();
+// });
