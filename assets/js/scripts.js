@@ -2,6 +2,8 @@
 
 var apiKey = '7e69c89705d14234b4fc6e5559121972';
 var contentSection = document.querySelector('.content');
+var recipeSearchForm = document.getElementById('recipeSearchForm');
+var ingredientsListContainer = document.querySelector('.ingredients-list ul');
 
 // Give welcome modal on first time visiting page
 if (!localStorage.getItem("modalDisplayed")) {
@@ -13,14 +15,14 @@ if (!localStorage.getItem("modalDisplayed")) {
 
   // Function to open the modal
   function openModal() {
-      modal.style.display = "block";
+    modal.style.display = "block";
   }
 
   // Function to close the modal
   function closeModal() {
-      modal.style.display = "none";
-      // Set a value in local storage to indicate that the modal has been displayed
-      localStorage.setItem("modalDisplayed", true);
+    modal.style.display = "none";
+    // Set a value in local storage to indicate that the modal has been displayed
+    localStorage.setItem("modalDisplayed", true);
   }
 
   // Event listener to show the modal on page load
@@ -28,10 +30,10 @@ if (!localStorage.getItem("modalDisplayed")) {
 
   // Event listener for the close button
   closeBtn.addEventListener("click", closeModal);
-  window.addEventListener("click", function(event) {
-      if (event.target == modal) {
-          closeModal();
-      }
+  window.addEventListener("click", function (event) {
+    if (event.target == modal) {
+      closeModal();
+    }
   });
 }
 
@@ -55,8 +57,6 @@ var fetchRandomRecipe = function () {
       recipeImage.src = recipe.image;
       var recipeInstructions = document.createElement('p');
       recipeInstructions.innerHTML = recipe.instructions;
-      var ingredientsHeader = document.createElement('h3');
-      ingredientsHeader.textContent = "Ingredients:";
 
       var recipeIngredients = document.createElement('ul');
       var ingredients = recipe.extendedIngredients;
@@ -66,14 +66,22 @@ var fetchRandomRecipe = function () {
         recipeIngredients.appendChild(ingredientItem);
       }
 
+      // Clear previous search results
+      var ingredientsListContainer = document.querySelector('.ingredients-list ul');
+      ingredientsListContainer.innerHTML = ''; // Clear existing content
+      ingredientsListContainer.appendChild(recipeIngredients);
+
       // Append the recipe elements to the content section
       contentSection.innerHTML = ''; // Clear existing content
       contentSection.appendChild(recipeContainer);
       recipeContainer.appendChild(recipeTitle);
       recipeContainer.appendChild(recipeImage);
       recipeContainer.appendChild(recipeInstructions);
-      recipeContainer.appendChild(ingredientsHeader);
-      recipeContainer.appendChild(recipeIngredients);
+
+      // Instead of appending the ingredients to recipeContainer, we'll append them directly to the "ingredients-list" container
+      var ingredientsListContainer = document.querySelector('.ingredients-list ul');
+      ingredientsListContainer.innerHTML = ''; // Clear existing content
+      ingredientsListContainer.appendChild(recipeIngredients);
     })
     .catch(function (error) {
       console.log('Error fetching recipe:', error);
@@ -137,6 +145,18 @@ var createAccordion = function (recipe) {
   var recipeSummary = document.createElement('p');
   recipeSummary.innerHTML = recipe.summary;
 
+  // Recipe instructions
+  var recipeInstructions = document.createElement('ul');
+  recipeInstructions.textContent = 'Cooking Instructions:';
+  var instructionsArray = recipe.analyzedInstructions.map(instruction => instruction.steps.map(step => step.step));
+  instructionsArray.forEach(instructionSteps => {
+    instructionSteps.forEach(step => {
+      var listItem = document.createElement('li');
+      listItem.textContent = step;
+      recipeInstructions.appendChild(listItem);
+    });
+  });
+
   // Link to view recipe
   var viewRecipeLink = document.createElement('a');
   viewRecipeLink.href = recipe.sourceUrl;
@@ -147,6 +167,8 @@ var createAccordion = function (recipe) {
   recipeContent.appendChild(recipeImage);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(recipeSummary);
+  recipeContent.appendChild(document.createElement('br'));
+  recipeContent.appendChild(recipeInstructions);
   recipeContent.appendChild(document.createElement('br'));
   recipeContent.appendChild(viewRecipeLink);
 
@@ -164,7 +186,7 @@ var createAccordion = function (recipe) {
 // Function to search for recipes based on user input and display results using accordions
 var searchRecipes = function (query) {
 
-  var recipeURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&addRecipeInformation=true&=addRecipeNutrition`;
+  var recipeURL = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&query=${query}&addRecipeInformation=true&addRecipeNutrition=true&includeIngredients=true`;
 
   fetch(recipeURL)
     .then(function (response) {
@@ -194,10 +216,58 @@ var searchRecipes = function (query) {
     });
 };
 
+// Function to fetch recipe Ingredients
+var getRecipeIngredientsById = function (recipeId) {
+  var recipeURL = `https://api.spoonacular.com/recipes/${recipeId}/ingredientWidget.json?apiKey=${apiKey}`;
+
+  return fetch(recipeURL)
+    .then(function (response) {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(function (data) {
+      return data.ingredients;
+    })
+    .catch(function (error) {
+      console.log('Error fetching recipe ingredients:', error);
+      return [];
+    });
+};
+
+
 // Function to show the recipe search form when the "Recipe Search" button is clicked
 var showRecipeSearchForm = function () {
-  var recipeSearchForm = document.getElementById('recipeSearchForm');
-  recipeSearchForm.style.display = 'block';
+  var searchFormContainer = document.createElement('div');
+  searchFormContainer.classList.add('search-form-container');
+
+  var searchInput = document.createElement('input');
+  searchInput.type = 'text';
+  searchInput.id = 'searchInput';
+  searchInput.placeholder = 'Search for recipes...';
+
+  var searchButton = document.createElement('button');
+  searchButton.id = 'searchBtn';
+  searchButton.textContent = 'Search';
+
+  searchFormContainer.appendChild(searchInput);
+  searchFormContainer.appendChild(searchButton);
+
+  // Clear previous content and append the search form container and ingredients list
+  ingredientsListContainer.innerHTML = '';
+  contentSection.innerHTML = '';
+  contentSection.appendChild(searchFormContainer);
+
+  // Add click event listener to the "Search" button inside the recipe search form
+  searchButton.addEventListener('click', handleSearch);
+
+  // Add keyup event listener on the search input to trigger search on Enter key press
+  searchInput.addEventListener('keyup', function (event) {
+    if (event.keyCode === 13) {
+      handleSearch();
+    }
+  });
 };
 
 // Function to handle search button click
