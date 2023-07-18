@@ -387,9 +387,3 @@ randomBeerBtn.addEventListener('click', () => {
       displayBeerData(data);
     });
 });
-
-// Adding JS for tooltip from popper.js library
-$document.ready(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-});
-
