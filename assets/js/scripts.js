@@ -121,6 +121,21 @@ var createAccordion = function (recipe) {
   checkboxInput.name = 'accordion-checkbox';
   checkboxInput.hidden = true;
 
+  // Add event listener to the accordion checkbox for "change" event
+  checkboxInput.addEventListener('change', function () {
+    // Check if the accordion is now expanded
+    if (this.checked) {
+      // Call the function to fetch and display the ingredients
+      getRecipeIngredientsById(recipe.id)
+        .then(function (ingredients) {
+          appendIngredientsList(ingredients);
+        })
+        .catch(function (error) {
+          console.log('Error fetching recipe ingredients:', error);
+        });
+    }
+  });
+
   var accordionHeader = document.createElement('label');
   accordionHeader.classList.add('accordion-header');
   accordionHeader.htmlFor = 'accordion-' + recipe.id;
@@ -449,3 +464,28 @@ beerSearchButton.addEventListener('click', function () {
   // Show the beer search form
   showBeerSearchForm();
 });
+
+var appendIngredientsList = function (ingredients) {
+  // Clear previous ingredients list
+  ingredientsListContainer.innerHTML = '';
+
+  // Check if the ingredients list is empty
+  if (ingredients.length === 0) {
+    var noIngredientsMsg = document.createElement('p');
+    noIngredientsMsg.textContent = 'No ingredients available for this recipe.';
+    ingredientsListContainer.appendChild(noIngredientsMsg);
+  } else {
+    // Create a new unordered list to hold the ingredients
+    var ingredientsList = document.createElement('ul');
+
+    // Loop through the ingredients and create list items for each
+    ingredients.forEach(function (ingredient) {
+      var listItem = document.createElement('li');
+      listItem.textContent = ingredient.name;
+      ingredientsList.appendChild(listItem);
+    });
+
+    // Append the ingredients list to the ingredients section
+    ingredientsListContainer.appendChild(ingredientsList);
+  }
+};
