@@ -301,6 +301,20 @@ var handleSearch = function () {
 // Build page
 generateFoodTrivia();
 
+// Function to update the date and time in the footer
+function updateDateTime() {
+  var dateAndTimeElement = document.getElementById('dateAndTime');
+  var formattedDateTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+  dateAndTimeElement.textContent = formattedDateTime;
+}
+
+// Call the updateDateTime function to initially set the date and time in the footer
+updateDateTime();
+
+// Update the date and time every second to keep it up to date
+setInterval(updateDateTime, 1000);
+
+
 // Add click event listener to the "Random" button
 var randomButton = document.getElementById('randomBtn');
 randomButton.addEventListener('click', fetchRandomRecipe);
