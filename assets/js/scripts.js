@@ -212,6 +212,14 @@ var searchRecipes = function (query) {
       // Clear previous search results
       contentSection.innerHTML = ''; // Clear existing content
 
+      // Check if there are no results
+      if (recipes.length === 0) {
+        var noResultsMessage = document.createElement('p');
+        noResultsMessage.textContent = 'No results found for your search.';
+        contentSection.appendChild(noResultsMessage);
+        return; // Exit the function early if no results are found
+      }
+
       // Loop through the recipes and create accordions for each page
       for (var i = 0; i < numPages; i++) {
         var pageStartIndex = i * numPerPage;
@@ -452,6 +460,14 @@ var handleBeerSearch = function () {
   if (beerSearchInput.trim() !== '') {
     fetchBeersByFood(beerSearchInput)
       .then(data => {
+        // Check if there are no results
+        if (data.length === 0) {
+          var noResultsMessage = document.createElement('p');
+          noResultsMessage.textContent = 'No beers found for your food pairing.';
+          contentSection.innerHTML = ''; // Clear previous content
+          contentSection.appendChild(noResultsMessage);
+          return; // Exit the function early if no results are found
+        }
         displayBeerData(data);
       });
   }
