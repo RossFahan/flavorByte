@@ -36,8 +36,8 @@
                 <!-- navbar buttons  -->
                 <li><button class="btn" id="recipeSearchBtn" data-toggle="tooltip" title="Click here to search for a recipe">Recipe
                         Search</button></li>
-                <li><button class="btn" id="caloriesBtn" data-toggle="tooltip"
-                        title="Click here for Nutritional Information">Calories/Nutritional</button></li>
+                <li><button class="btn" id="beerSearchBtn" data-toggle="tooltip"
+                        title="Click here for Nutritional Information">Food/Beer Pairing</button></li>
                 <li><button class="btn" id="dietBtn" data-toggle="tooltip" title="Click here to add Dietary Restrictions">Dietary
                         Restrictions</button></li>
                 <li><button class="btn" id="randomBtn" data-toggle="tooltip"
@@ -50,11 +50,22 @@
         <div class="content">
             <!-- Search form for recipe search -->
             <div id="recipeSearchForm" style="display: none;">
+              <div class="form-container">
                 <input type="text" id="searchInput" placeholder="Search for recipes...">
                 <button id="searchBtn">Search</button>
+              </div>
             </div>
+          
+            <!-- Search form for beer search -->
+            <div id="beerSearchForm" style="display: none;">
+              <div class="form-container">
+                <input type="text" id="beerSearchInput" placeholder="Enter a food pairing...">
+                <button id="beerSearchBtn">Search</button>
+              </div>
+            </div>
+          
             <!-- Search results using accordions -->
-        </div>
+          </div>
 
         <div class="ingredients-list">
             <h3>Ingredients</h3>

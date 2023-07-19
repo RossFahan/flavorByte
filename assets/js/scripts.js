@@ -313,19 +313,32 @@ function fetchRandomBeer() {
 // Function to display the fetched beer data in the content section
 function displayBeerData(beerData) {
   if (beerData) {
+    // Get the content section element
     var contentSection = document.querySelector('.content');
-    var beer = beerData[0];
+
+    // Get random beer from the array
+    if (beerData.length > 1) {
+      var randomIndex = Math.floor(Math.random() * beerData.length);
+      beer = beerData[randomIndex];
+    } else if (beerData.length === 1) {
+      beer = beerData[0];
+    } else {
+      throw new Error("No beer data available.");
+    }
 
     // Create elements to display beer data
-    var beerNameElement = document.createElement('h2');
+    var beerNameElement = document.createElement('h2');     // Beer name
     beerNameElement.textContent = beer.name;
 
-    var beerTaglineElement = document.createElement('p');
+
+    var beerTaglineElement = document.createElement('p');   // Beer tagline
     beerTaglineElement.textContent = beer.tagline;
 
-    var beerDescriptionElement = document.createElement('p');
+
+    var beerDescriptionElement = document.createElement('p');   // Beer description
     beerDescriptionElement.textContent = beer.description;
 
+    // Beer image
     var beerImageElement = document.createElement('img');
     beerImageElement.src = beer.image_url;
     beerImageElement.alt = beer.name;
@@ -333,6 +346,7 @@ function displayBeerData(beerData) {
     beerImageElement.style.maxHeight = '300px'; // Set the maximum height to 300 pixels
     beerImageElement.style.height = 'auto'; // Automatically adjust height to maintain aspect ratio
 
+    // Beer food pairing
     var beerFoodPairingElement = document.createElement('ul');
     beerFoodPairingElement.innerHTML = '<h3>Food Pairing:</h3>';
     beer.food_pairing.forEach(function (food) {
@@ -349,6 +363,7 @@ function displayBeerData(beerData) {
     contentSection.appendChild(beerImageElement);
     contentSection.appendChild(beerFoodPairingElement);
   } else {
+    // If beerData is invalid or empty, log an error message
     console.error('Invalid beer data.');
   }
 }
@@ -365,7 +380,7 @@ randomBeerBtn.addEventListener('click', () => {
 var fetchBeersByFood = function (food) {
   var apiUrl = 'https://api.punkapi.com/v2/beers?food=' + encodeURIComponent(food);
 
-  fetch(apiUrl)
+  return fetch(apiUrl)
     .then(function (response) {
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -374,11 +389,58 @@ var fetchBeersByFood = function (food) {
     })
     .then(function (data) {
       console.log("Beers matching the food:", data);
+      return data; // Return the data as the resolved value of the promise
     })
     .catch(function (error) {
       console.log('Error fetching beers:', error);
+      throw error; // Re-throw the error to be caught in the calling function if needed
     });
 };
 
-// Example usage:
-fetchBeersByFood('pizza');
+
+// Function to show the beer search form when the "Search Beer" button is clicked
+var showBeerSearchForm = function () {
+  var beerSearchFormContainer = document.createElement('div');
+  beerSearchFormContainer.classList.add('search-form-container');
+
+  var beerSearchInput = document.createElement('input');
+  beerSearchInput.type = 'text';
+  beerSearchInput.id = 'beerSearchInput';
+  beerSearchInput.placeholder = 'Enter a food pairing...';
+
+  var beerSearchButton = document.createElement('button');
+  beerSearchButton.id = 'beerSearchBtn';
+  beerSearchButton.textContent = 'Search';
+
+  beerSearchFormContainer.appendChild(beerSearchInput);
+  beerSearchFormContainer.appendChild(beerSearchButton);
+
+  // Clear previous content and append the beer search form container
+  contentSection.innerHTML = '';
+  contentSection.appendChild(beerSearchFormContainer);
+
+  // Add click event listener to the "Search" button inside the beer search form
+  beerSearchButton.addEventListener('click', handleBeerSearch);
+
+  // Add keyup event listener on the search input to trigger search on Enter key press
+  beerSearchInput.addEventListener('keyup', function (event) {
+    if (event.keyCode === 13) {
+      handleBeerSearch();
+    }
+  });
+};
+
+// Function to handle beer search button click
+var handleBeerSearch = function () {
+  var beerSearchInput = document.getElementById('beerSearchInput').value;
+  if (beerSearchInput.trim() !== '') {
+    fetchBeersByFood(beerSearchInput)
+      .then(data => {
+        displayBeerData(data);
+      });
+  }
+};
+
+// Add click event listener to the "Search Beer" button
+var beerSearchButton = document.getElementById('beerSearchBtn');
+beerSearchButton.addEventListener('click', showBeerSearchForm);
