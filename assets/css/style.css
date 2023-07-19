@@ -63,7 +63,9 @@ h1, h2, h3, h4, h5, h6 {
   grid-template-rows: 1fr 8fr 1fr;
   grid-gap: 20px;
   height: 100vh;
+  background-size: cover;
   background-color: var(--persian-green);
+  overflow: auto;
 }
 
 header {
