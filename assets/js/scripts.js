@@ -357,6 +357,7 @@ function displayBeerData(beerData) {
     });
 
     // Clear previous content and append new elements
+    contentSection.innerHTML = '';
     contentSection.appendChild(beerNameElement);
     contentSection.appendChild(beerTaglineElement);
     contentSection.appendChild(beerDescriptionElement);
