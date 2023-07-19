@@ -138,6 +138,7 @@ max-width: fit-content;
 }
 
 /* Make the button take up the entire width */
+#beerFormBtn,
 #searchBtn{
   border-radius: 14px; /* Make the buttons round */
   height: 40px;

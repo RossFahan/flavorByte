@@ -410,7 +410,7 @@ var showBeerSearchForm = function () {
   beerSearchInput.placeholder = 'Enter a food pairing...';
 
   var beerSearchButton = document.createElement('button');
-  beerSearchButton.id = 'beerSearchBtn';
+  beerSearchButton.id = 'beerFormBtn';
   beerSearchButton.textContent = 'Search';
 
   beerSearchFormContainer.appendChild(beerSearchInput);
