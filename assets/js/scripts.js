@@ -316,14 +316,21 @@ function displayBeerData(beerData) {
     // Get the content section element
     var contentSection = document.querySelector('.content');
 
-    // Get the first beer from the beerData array
-    var beer = beerData[0];
+    // Get random beer from the array
+    if (beerData.length > 1) {
+      var randomIndex = Math.floor(Math.random() * beerData.length);
+      beer = beerData[randomIndex];
+    } else if (beerData.length === 1) {
+      beer = beerData[0];
+    } else {
+      throw new Error("No beer data available.");
+    }
 
     // Create elements to display beer data
     var beerNameElement = document.createElement('h2');     // Beer name
     beerNameElement.textContent = beer.name;
 
-  
+
     var beerTaglineElement = document.createElement('p');   // Beer tagline
     beerTaglineElement.textContent = beer.tagline;
 
