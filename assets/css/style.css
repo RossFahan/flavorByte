@@ -69,13 +69,13 @@ h1, h2, h3, h4, h5, h6 {
 header {
   text-align: center;
   padding: 20px;
-  background-color: #f2f2f2;
 }
 
 @media screen and (max-width: 60em) {
   .site-container {
       grid-template-rows: 2fr 1fr 5fr 1fr;
       background-color: var(--persian-green);
+      overflow: auto;
   }
 }
 
