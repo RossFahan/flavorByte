@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
     <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/src/parsley.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
@@ -34,7 +35,8 @@
         <div class="navbar">
             <ul class="btn-group btn-group-block">
                 <!-- navbar buttons  -->
-                <li><button class="btn" id="recipeSearchBtn" data-toggle="tooltip" title="Click here to search for a recipe">Recipe
+                <li><button class="btn" id="recipeSearchBtn" data-toggle="tooltip"
+                        title="Click here to search for a recipe">Recipe
                         Search</button></li>
                 <li><button class="btn" id="beerSearchBtn" data-toggle="tooltip"
                         title="Click here for to Search for Food/Beer Pairing">Food/Beer Pairing</button></li>
@@ -48,22 +50,22 @@
         <div class="content">
             <!-- Search form for recipe search -->
             <div id="recipeSearchForm" style="display: none;">
-              <div class="form-container">
-                <input type="text" id="searchInput" placeholder="Search for recipes...">
-                <button id="searchBtn">Search</button>
-              </div>
+                <div class="form-container">
+                    <input type="text" id="searchInput" placeholder="Search for recipes...">
+                    <button id="searchBtn">Search</button>
+                </div>
             </div>
-          
+
             <!-- Search form for beer search -->
             <div id="beerSearchForm" style="display: none;">
-              <div class="form-container">
-                <input type="text" id="beerSearchInput" placeholder="Enter a food pairing...">
-                <button id="beerSearchBtn">Search</button>
-              </div>
+                <div class="form-container">
+                    <input type="text" id="beerSearchInput" placeholder="Enter a food pairing...">
+                    <button id="beerSearchBtn">Search</button>
+                </div>
             </div>
-          
+
             <!-- Search results using accordions -->
-          </div>
+        </div>
 
         <div class="ingredients-list">
             <h3>Ingredients</h3>
@@ -80,7 +82,7 @@
 
     <!-- scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/parsleyjs@2.9.2/dist/parsley.min.js"></script>
     <script src="./assets/js/scripts.js"></script>
 </body>
 

@@ -4,6 +4,7 @@ var apiKey = '7e69c89705d14234b4fc6e5559121972';
 var contentSection = document.querySelector('.content');
 var recipeSearchForm = document.getElementById('recipeSearchForm');
 var ingredientsListContainer = document.querySelector('.ingredients-list ul');
+var beerSearchButton = document.getElementById('beerSearchBtn');
 
 // Give welcome modal on first time visiting page
 if (!localStorage.getItem("modalDisplayed")) {
@@ -356,8 +357,6 @@ function displayBeerData(beerData) {
     });
 
     // Clear previous content and append new elements
-    contentSection.innerHTML = '';
-    ingredientsListContainer.innerHTML = '';
     contentSection.appendChild(beerNameElement);
     contentSection.appendChild(beerTaglineElement);
     contentSection.appendChild(beerDescriptionElement);
@@ -442,6 +441,10 @@ var handleBeerSearch = function () {
   }
 };
 
-// Add click event listener to the "Search Beer" button
-var beerSearchButton = document.getElementById('beerSearchBtn');
-beerSearchButton.addEventListener('click', showBeerSearchForm);
+beerSearchButton.addEventListener('click', function () {
+  // Clear the ingredients section
+  ingredientsListContainer.innerHTML = '';
+
+  // Show the beer search form
+  showBeerSearchForm();
+});
