@@ -9,7 +9,7 @@ Welcome to FlavorByte! This repository houses a web application that provides a 
 | Technology Used         | Resource URL           | 
 | ------------- |:-------------:| 
 | Foundation Layout | [https://get.foundation/building-blocks/blocks/holy-grail.html](https://get.foundation/building-blocks/blocks/holy-grail.html) |
-| SPECTE Framework | [https://picturepan2.github.io/spectre/index.html](https://picturepan2.github.io/spectre/index.html) |
+| SPECTRE Framework | [https://picturepan2.github.io/spectre/index.html](https://picturepan2.github.io/spectre/index.html) |
 | Coolors | [https://coolors.co/264653-2a9d8f-e9c46a-f4a261-e76f51](https://coolors.co/264653-2a9d8f-e9c46a-f4a261-e76f51) |
 | Coolors | [https://coolors.co/ff99c8-fcf6bd-d0f4de-a9def9-e4c1f9](https://coolors.co/ff99c8-fcf6bd-d0f4de-a9def9-e4c1f9) |
 | Excalidraw | [https://excalidraw.com/](https://excalidraw.com/) |
